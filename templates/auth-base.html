@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Mukta&family=Nunito&family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'src/output.css' %}">
+    <link rel="stylesheet" href="{% static 'src/custom.css' %}">
+    <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
+</head>
+<body class="bg-slate-200">
+
+    <section class="w-[95vw] h-[95vh] grid grid-cols-2 mx-auto my-4 bg-blue-600 rounded-3xl shadow-md">
+        <div class="bg-white rounded-3xl px-32 py-12">
+            {% block main %}{% endblock main %}
+        </div>
+
+
+        <div class="bg-blue-600 rounded-r-3xl px-40 relative">
+            <span class="text-9xl text-white font-serif absolute top-24 left-[85px] bg-emerald-400 rounded-full">"</span>
+            <p class="text-7xl mt-40 leading-[6rem] font-bold font-mukta text-white">Make<br/>Your Ideas Public</p>
+            <p class="text-sm text-gray-100 font-medium my-4 leading-7 px-3">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Possimus tempore velit temporibus dicta perspiciatis.</p>
+        </div>
+    </section>
+
+
+    
+    <script src="{% static 'src/custom.js' %}"></script>
+</body>
+
+</html>

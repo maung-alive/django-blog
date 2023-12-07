@@ -1,0 +1,24 @@
+{% extends 'auth-base.html' %}
+
+{% block title %}Blox - Login{% endblock title %}
+
+{% block main %}
+<p class="text-md font-medium text-gray-400">Haven't an account? <a href="{% url 'web-signup' %}" class="text-blue-600">Signup</a></p>
+<p class="text-3xl text-blue-600 pt-28 pb-4 font-medium">Welcome to Blox</p>
+<p class="text-sm text-gray-400 font-josefin">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia repudiandae reiciendis, temporibus officia numquam magni ullam tempore.</p>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="mt-16 relative">
+        <label for="username" class="text-xs font-medium bg-white absolute -top-2 left-2 text-blue-600 px-2">Username</label>
+        <input type="text" name="username" id="username" class="focus:outline-none border-2 py-3 px-2 rounded-md border-blue-600 w-full active:bg-inherit" required />
+    </div>
+    <div class="mt-10 relative">
+        <label for="password" class="text-xs font-medium bg-white absolute -top-2 left-2 text-blue-600 px-2">Password</label>
+        <input type="password" name="password" id="password" class="focus:outline-none border-2 py-3 px-2 rounded-md border-blue-600 w-full active:bg-inherit" required />
+    </div>
+    <div class="mt-10">
+        <button type="submit" class="w-full py-4 rounded-xl font-medium text-white bg-blue-600 active:bg-blue-600 hover:bg-inherit hover:text-blue-600 hover:border-2 hover:border-blue-600 active:text-white active:scale-95 duration-100">Login</button>
+    </div>                
+</form>
+{% endblock main %}

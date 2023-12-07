@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <div class="relative w-full flex flex-col md:flex-row md:gap-5 lg:gap-10 mt-10">
+        <img src="{{article.cover.url}}" alt="{{ article.title }}" class="w-full h-[400px] object-contain bg-slate-300 rounded-lg">
+        <div class="w-full md:w-[400px] lg:w-[500px] h-[400px] bg-white z-10 px-5 py-4 rounded-xl">
+            <p class="text-gray-500 font-medium text-lg">Author</p>
+            <p class="text-lg text-gray-950 font-medium">@{{article.author.username}}</p>
+            <p class="text-lg pt-6 text-gray-500 font-medium">Published</p>
+            <p class="text-lg text-gray-900 font-medium">{{article.date}}</p>
+            <p class="text-lg pt-6 text-gray-500 font-medium">Comments</p>
+            <p class="text-lg text-gray-900 font-medium">{{article.comment_set.all|length}}</p>
+            <p class="text-lg pt-24 text-gray-500 font-medium">Category</p>
+            <p class="text-lg text-gray-900 font-medium hover:text-red-600"><a href="/?category={{article.category.name}}">{{article.category.name|default:"Uncategorized"}}</a></p>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-3xl px-4 md:px-8 lg:px-16 py-10 w-full my-10">
+        <p class="text-4xl font-bold font-mukta">{{article.title}}</p>
+        <p class="text-md leading-10">
+            {{article.content|linebreaks}}
+        </p>
+    </div>
+
+    <form method="POST" action="{% url 'web-comment' title=article.title %}" class="px-8 py-4 bg-white rounded-3xl">
+        {% csrf_token %}
+        <textarea type="text" name="text" class="bg-white p-3 focus:outline-none text-2xl rounded-xl w-full h-[250px]" placeholder="How do you think?"></textarea>
+        <div class="text-right">
+            <button class="px-6 py-2 text-white rounded-lg hover:text-black bg-red-500 font-medium">Submit</button>
+        </div>
+    </form>
+
+    {% if article.comment_set.all|length > 0 %}
+    <div class="px-5 py-10">
+        <p class="text-3xl mb-5 before:px-1 before:py-2 before:bg-red-600 before:mr-3">What others think?</p>
+        {% for comment in article.comment_set.all %}
+            <div class="min-w-[500px] max-w-full mb-4 ml-8">
+                <div class="px-6 py-4 bg-white rounded-t-xl text-md leading-7">
+                    {{comment.text|linebreaks}}
+                </div>
+                <div class="bg-slate-200 py-1 text-md px-5 w-full text-right font-nunito">
+                    <span class="font-medium font-mukta">{{comment.user}}</span> on {{comment.date}}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <p class="text-3xl py-5">Keep reading: Related articles</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 mb-10">
+        {% for item in related_articles %}
+        <div class="relative bg-gray-200 hover:bg-gradient-to-tr from-blue-500 via-purple-500 to-red-300 h-[525px] rounded-md overflow-hidden">
+            <img src="{{item.cover.url}}" alt="{{item.title}}" class="h-[200px] w-full object-contain bg-gray-300">
+            <div class="p-2">
+                <p class="text-md text-gray-700 font-mukta">{{item.category.name|default:"Uncategorized"}}</p>
+                <p class="text-4xl text-black hover:text-white font-medium font-josefin py-2 leading-[50px]">
+                    <a href="/articles/{{item.title}}">{{item.title}}</a>
+                </p>
+                <p class="text-md text-gray-800 font-mediium font-nunito absolute bottom-4">{{item.date}}, By {{item.author.username}}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>    
+{% endblock main %}

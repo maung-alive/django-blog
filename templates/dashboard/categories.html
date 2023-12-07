@@ -1,0 +1,54 @@
+{% extends 'dashboard-base.html' %}
+
+{% block title %}Dashboard - Categories{% endblock title %}
+
+{% block main %}
+
+<p class="text-4xl font-bold text-blue-600 font-josefin py-10 px-10">Settings</p>
+
+<section class="px-32">
+    <div class="p-2 flex items-center gap-x-3">
+        <input type="text" id="catName" placeholder="Category's name" class="focus:outline-none border-2 py-3 px-2 rounded-md  w-full active:bg-inherit" />
+        <button onclick="addNewCat()"><i class="fa-solid fa-add text-2xl bg-gray-300 p-3 rounded-md"></i></button>
+    </div>
+
+    <hr class="my-8" />
+
+    <div class="flex items-center justify-between bg-gray-100 py-4 px-2 my-1 rounded-md">
+        <p class="text-xl font-medium text-black">Pinned</p>
+        <button class="p-3 text-xl text-white bg-lime-700 rounded-md cursor-pointer" onclick="showModal('Pinned')"><i class="fa-solid fa-add"></i></button>
+    </div>
+    {% for article in pinned %}
+    <div class="flex items-center justify-between bg-gray-50 py-4 px-2 my-1 rounded-md">
+        <p class="text-xl font-medium text-black">+ {{article.title}}</p>
+        <a href="?type=remove&cat=pin&title={{article.title}}" class="fa-solid fa-times p-3 text-xl text-white bg-pink-700 rounded-md cursor-pointer"></a>
+    </div>
+    {% endfor %}
+    <hr class="my-6">
+
+    {% for cat in cats %}
+    <div class="flex items-center justify-between bg-gray-100 py-4 px-2 my-1 rounded-md">
+        <p class="text-xl font-medium text-black">{{cat.name}}</p>
+        <button class="p-3 text-xl text-white bg-lime-700 rounded-md cursor-pointer" onclick="showModal('{{cat.name}}')"><i class="fa-solid fa-add"></i></button>
+    </div>
+    {% for article in cat.article_set.all %}
+    <div class="flex items-center justify-between bg-gray-50 py-4 px-2 my-1 rounded-md">
+        <p class="text-xl font-medium text-black">+ {{article.title}}</p>
+        <a href="?type=remove&cat={{cat.name}}&title={{article.title}}" class="fa-solid fa-times p-3 text-xl text-white bg-pink-700 rounded-md cursor-pointer"></a>
+    </div>
+    {% endfor %}
+    <hr class="my-6">
+    {% endfor %}
+</section>
+
+<div class="hidden duration-100 fixed p-10 rounded-3xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 bg-slate-200 shadow-lg w-[60vw] h-[90vh]" id="modal">
+    <p class="text-xl font-medium text-blue-600 py-6">Add to <span id="category-name"></span></p>
+    <span class="absolute -translate-x-1/2 translate-y-0 -top-2 left-1/2 text-3xl fa-solid fa-times text-red-600" onclick="$('#modal').toggleClass('hidden')"></span>
+    {%for article in articles %}
+    <div class="flex items-center justify-between bg-gray-50 hover:bg-gray-300 py-4 px-2 my-1 rounded-md" data-category="" id="article" onClick="setCategory(this, '{{article.title}}')">
+        <p class="text-xl font-medium text-black">+ {{article.title}}</p>
+        <i class="fa-solid fa-check p-3 text-xl text-white bg-gray-200 rounded-md cursor-pointer"></i>
+    </div>
+    {% endfor %}
+</div>
+{% endblock main %}

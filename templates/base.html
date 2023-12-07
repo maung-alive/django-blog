@@ -1,0 +1,108 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Mukta&family=Nunito&family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'src/output.css' %}">
+    <link rel="stylesheet" href="{% static 'src/custom.css' %}">
+    <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
+
+    
+</head>
+
+<body class="bg-gray-100">
+    
+    <nav class="sticky top-0 left-0 z-50 w-full px-8 md:px-30 lg:px-40 py-4 flex justify-between items-center duration-500" style="background-color: rgb(15, 23, 42);color:white;" id="home-nav">
+        
+        <form action="/" method="get" class="flex w-[40%] border bg-gray-200 py-3 px-4 rounded-2xl border-gray-200">
+            <input type="text" name="search" placeholder="Search..." class="text-black placeholder:text-black focus:outline-none w-full bg-inherit" required />
+            <button type="submit" class="text-black"><i class="fa-solid fa-search"></i></button>
+        </form>
+
+        <div class="flex gap-x-2 items-center px-4 py-1 bg-orange-600 hover:bg-orange-400 text-gray-900 rounded-3xl">
+            {% if user.is_authenticated %}
+                <a href="{% url 'web-dashboard' %}">
+                    <i class="fa-solid fa-user"></i>
+                    <span class="text-md">{{request.user.username}}</span>
+                </a>
+            {% else %}
+                <a href="{% url 'web-login' %}">
+                    <i class="fa-solid fa-key"></i>
+                    <span class="text-md">Login</span>
+                </a>
+            {% endif %}
+        </div>
+    </nav>
+    
+    <main class="mx-2 lg:mx-40">
+        {% block main %}
+        {% endblock main %}
+    </main>
+
+    <div class="w-full px-6 md:px-20 lg:px-40 py-10 text-center bg-gray-200">
+        <p class="text-xl text-blue-950">Subcribe or create a account?</p>
+        <div class="flex my-3 md:px-10 lg:px-20">
+            <input type="text" class="w-full px-2 py-2 text-xl">
+            <button type="submit" class="px-4 py-2 bg-blue-950 text-white">Subcribe</button>
+        </div>
+    </div>
+
+    <footer class="w-full py-10 px-16 bg-slate-900 block lg:flex justify-around">
+        <div class="text-left w-full lg:w-[45%]">
+            <h3 class="text-3xl font-medium text-orange-400 pb-4">Maung</h3>
+            <p class="text-left text-sm leading-8 text-orange-50">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quia inventore reprehenderit et autem ipsa iure omnis accusamus temporibus eveniet perferendis, excepturi vel, consequuntur distinctio error blanditiis laboriosam iste odio totam.
+            </p>
+        </div>
+        <div class="w-full grid grid-cols-1 md:grid-cols-3 mt-10 md:mt-0 md:px-10">
+            <div class="mt-5 md:mt-0">
+                <h3 class="text-xl text-orange-400 font-medium before:py-1 before:pl-1 before:mr-2 before:bg-orange-400">Links</h3>
+                <div class="pl-4 pt-6">
+                    <a href="#text" class="text-gray-300 text-sm leading-8 block hover:text-gray-50">Home</a>
+                    <a href="#text" class="text-gray-300 text-sm leading-8 block pt-2 hover:text-gray-50">Categories</a>
+                    <a href="#text" class="text-gray-300 text-sm leading-8 block pt-2 hover:text-gray-50">Achieves</a>
+                </div>
+            </div>
+            <div class="mt-5 md:mt-0">
+                <h3 class="text-xl text-orange-400 font-medium before:py-1 before:pl-1 before:mr-2 before:bg-orange-400">Others</h3>
+                <div class="pl-4 pt-6">
+                    <a href="#text" class="text-gray-300 text-sm leading-8 block hover:text-gray-50">Home</a>
+                    <a href="#text" class="text-gray-300 text-sm leading-8 block pt-2 hover:text-gray-50">Categories</a>
+                    <a href="#text" class="text-gray-300 text-sm leading-8 block pt-2 hover:text-gray-50">Achieves</a>
+                </div>
+            </div>
+            <div class="mt-5 md:mt-0">
+                <h3 class="text-xl text-orange-400 font-medium before:py-1 before:pl-1 before:mr-2 before:bg-orange-400">FOLLOW US</h3>
+                <div class="pt-6">
+                    <p class="text-sm text-white">Follow us on Social meida</p>
+                    <div class="flex gap-x-4 py-4">
+                        <a href="https://facebook.com"><i class="fa-brands fa-facebook text-blue-600 text-2xl"></i></a>
+                        <a href="https://facebook.com"><i class="fa-brands fa-tiktok text-white text-2xl"></i></a>
+                        <a href="https://facebook.com"><i class="fa-brands fa-linkedin text-blue-400 text-2xl"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- <span class="cursor">
+        <span class="white"></span>
+        <span class="red"></span>
+    </span> -->
+    
+    <script src="{% static 'src/custom.js' %}">
+    </script>
+</body>
+
+</html>

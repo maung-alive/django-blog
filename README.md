@@ -1,0 +1,1 @@
+# Blog app using django and tailwind

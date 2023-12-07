@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Mukta&family=Nunito&family=Poppins&display=swap" rel="stylesheet">    <link rel="stylesheet" href="{% static 'src/output.css' %}">
+    <link rel="stylesheet" href="{% static 'src/custom.css' %}">
+    <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
+</head>
+<body class="">
+    <nav class="fixed flex justify-between md:block top-0 left-0 w-full md:w-80 lg:w-96 md:h-screen bg-gray-800 lg:pl-10 lg:pr-0 py-3 items-center z-10">
+        <a href="{% url 'web-dashboard' %}" class="block md:py-20 text-xl md:text-3xl lg:text-4xl md:px-8 font-bold font-mukta text-blue-300">Dashboard</a>
+
+        <div class="flex gap-x-2 md:block pr-3 md:pr-0">
+            <a href="{% url 'dashboard-articles' %}" class="text-xl flex items-center justify-start md:gap-4 lg:my-4 rounded-full md:rounded-r-2xl p-3 font-medium md:px-10 md:py-4 bg-gray-700 hover:border md:hover:border-y-2 hover:border-l-2 hover:border-white hover:bg-inherit hover:scale-105 duration-100 text-white">
+                <span class="hidden lg:block">Articles</span><i class="fa-solid fa-pen"></i>
+            </a>
+            <a href="{% url 'dashboard-categories' %}" class="text-xl flex items-center justify-start md:gap-4 lg:my-4 rounded-full md:rounded-r-2xl p-3 font-medium md:px-10 md:py-4 bg-gray-700 hover:border md:hover:border-y-2 hover:border-l-2 hover:border-white hover:bg-inherit hover:scale-105 duration-100 text-white">
+                <span class="hidden lg:block">Categories</span><i class="fa-solid fa-cat"></i>
+            </a>
+            <a href="{% url 'dashboard-settings' %}" class="text-xl flex items-center justify-start md:gap-4 lg:my-4 rounded-full md:rounded-r-2xl p-3 font-medium md:px-10 md:py-4 bg-gray-700 hover:border md:hover:border-y-2 hover:border-l-2 hover:border-white hover:bg-inherit hover:scale-105 duration-100 text-white">
+                <span class="hidden lg:block">Settings</span><i class="fa-solid fa-cogs"></i>
+            </a>            
+            <a href="{% url 'web-logout' %}" class="text-xl flex items-center justify-start md:gap-4 lg:my-4 rounded-full md:rounded-r-2xl p-3 font-medium md:px-10 md:py-4 bg-gray-700 hover:border md:hover:border-y-2 hover:border-l-2 hover:border-white hover:bg-inherit hover:scale-105 duration-100 text-white">
+                <span class="hidden lg:block">Logout</span><i class="fa-solid fa-door-open"></i>
+            </a>            
+        </div>
+
+
+    </nav>
+    
+    <main class="px-2 md:pl-80 lg:pl-96 relative">
+        {% block main %}{% endblock main %}
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <script src="{% static 'src/custom.js' %}"></script>
+    </main>
+</body>
+
+</html>

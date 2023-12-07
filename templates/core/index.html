@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+<section class="my-3">
+    {% if articles|length == 1 %}
+    <div class="relative bg-gray-200 h-[525px] rounded-md overflow-hidden mb-5">
+        <img src="{{articles.0.cover.url}}" alt="{{articles.0.title}}" class="h-[300px] w-full object-contain bg-gray-300">
+        <div class="p-2">
+            
+            <p class="text-md text-gray-700 font-mukta">{{articles.0.category.name|default:"Uncategorized"}}</p>
+            <p class="text-4xl text-black hover:text-red-700 font-medium font-josefin py-2 leading-[50px]">
+                <a href="/articles/{{articles.0.title}}">{{articles.0.title}}</a>
+            </p>
+            <p class="text-md text-gray-800 font-mediium font-nunito absolute bottom-4">{{articles.0.date}}, By {{articles.0.author.username}}</p>
+        </div>
+    </div>  
+    {% endif %}
+    {% if articles|length > 1 %}
+    <div class="grid lg:grid-cols-[3fr_2fr] grid-rows-1 gap-x-5 lg:gap-y-0 gap-y-5 mb-5">
+        <div class="relative bg-gray-200 h-[500px] rounded-md overflow-hidden">
+            <img src="{{articles.0.cover.url}}" alt="{{articles.0.title}}" class="h-[325px] w-full object-contain bg-gray-300">
+            <div class="p-2">
+                <p class="text-md text-gray-700 font-mukta">{{articles.0.category.name|default:"Uncategorized"}}</p>
+                <a href="/articles/{{articles.0.title}}">
+                    <p class="text-4xl text-black hover:text-red-700 font-medium font-josefin py-2 leading-[50px]">
+                        <a href="/articles/{{articles.0.title}}">{{articles.0.title}}</a>
+                    </p>
+                </a>
+                <p class="text-md text-gray-800 font-mediium font-nunito absolute bottom-4">{{articles.0.date}}, By {{articles.0.author.username}}</p>
+            </div>
+        </div>
+        <div class="relative bg-gray-200 h-[500px] rounded-md overflow-hidden">
+            <img src="{{articles.1.cover.url}}" alt="{{articles.1.title}}" class="h-[200px] w-full object-contain bg-gray-300">
+            <div class="p-2">
+                <p class="text-md text-gray-700 font-mukta">{{articles.1.category.name|default:"Uncategorized"}}</p>
+                <a href="/articles/{{articles.1.title}}">
+                    <p class="text-4xl text-black hover:text-red-700 font-medium font-josefin py-2 leading-[50px]">
+                        <a href="/articles/{{articles.1.title}}">{{articles.1.title}}</a>
+                    </p>
+                </a>
+                <p class="text-md text-gray-800 font-mediium font-nunito absolute bottom-4">{{articles.1.date}}, By {{articles.1.author.username}}</p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if articles|length > 3 %}
+    <div class="grid lg:grid-cols-3 grid-rows-1 lg:gap-y-0 gap-y-5 gap-x-5 mb-5">
+    {% else %}
+    <div class="grid lg:grid-cols-[1fr_2fr] lg:gap-y-0 gap-y-5 grid-rows-1 gap-x-5 mb-5">
+    {% endif %}
+        {% if articles|length >= 3 %}
+        <div class="relative h-[525px] overflow-y-auto grid grid-rows-[1fr_4fr] gap-y-3">
+            <div class="w-full bg-blue-900 text-white text-3xl font-medium font-josefin flex items-center px-4 h-[100px]">
+                Pinned Articles
+            </div>
+            <div class="w-full grid grid-cols-1 gap-y-3">
+                {% for item in pinned %}
+                <a href="/articles/{{item.title}}">
+                    <div class="w-full bg-gray-200 rounded-sm px-2 py-4">
+                        <p class="text-2xl text-black hover:text-teal-600 font-bold font-josefin pt-[0.125rem] pb-3">{{ item.title }}</p>
+                        <p class="text-gray-700 font-mukta text-md">{{ item.category.name|default:"Uncategorized" }}</p>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        {% if articles|length == 3 %}
+        <div class="relative bg-gray-200 h-[525px] rounded-md overflow-hidden">
+            <img src="{{articles.2.cover.url}}" alt="{{articles.2.title}}" class="h-[200px] w-full object-contain bg-gray-300">
+            <div class="p-2">
+                <p class="text-md text-gray-700 font-mukta">{{articles.2.category.name|default:"Uncategorized"}}</p>
+                <p class="text-4xl text-black hover:text-red-700 font-medium font-josefin py-2 leading-[50px]">
+                    <a href="/articles/{{articles.2.title}}">{{articles.2.title}}</a>
+                </p>
+                <p class="text-md text-gray-800 font-mediium font-nunito absolute bottom-4">{{articles.2.date}}, By {{articles.2.author.username}}</p>
+            </div>
+        </div>
+        {% endif %}
+        {% if articles|length > 3 %}
+        <div class="relative bg-gray-200 h-[525px] rounded-md overflow-hidden">
+            <img src="{{articles.2.cover.url}}" alt="{{articles.2.title}}" class="h-[200px] w-full object-contain bg-gray-300">
+            <div class="p-2">
+                <p class="text-md text-gray-700 font-mukta">{{articles.2.category.name|default:"Uncategorized"}}</p>
+                <p class="text-4xl text-black hover:text-red-700 font-medium font-josefin py-2 leading-[50px]">
+                    <a href="/articles/{{articles.2.title}}">{{articles.2.title}}</a>
+                </p>
+                <p class="text-md text-gray-800 font-mediium font-nunito absolute bottom-4">{{articles.2.date}}, By {{articles.2.author.username}}</p>
+            </div>
+        </div>
+        <div class="relative bg-gray-200 h-[525px] rounded-md overflow-hidden">
+            <img src="{{articles.3.cover.url}}" alt="{{articles.3.title}}" class="h-[200px] w-full object-contain bg-gray-300">
+            <div class="p-2">
+                <p class="text-md text-gray-700 font-mukta">{{articles.3.category.name|default:"Uncategorized"}}</p>
+                <p class="text-4xl text-black hover:text-red-700 font-medium font-josefin py-2 leading-[50px]">
+                    <a href="/articles/{{articles.3.title}}">{{articles.3.title}}</a>
+                </p>
+                <p class="text-md text-gray-800 font-mediium font-nunito absolute bottom-4">{{articles.3.date}}, By {{articles.3.author.username}}</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    {% if articles|length == 5 %}
+    <div class="relative bg-gray-200 h-[525px] rounded-md overflow-hidden">
+        <img src="{{articles.4.cover.url}}" alt="{{articles.4.title}}" class="h-[300px] w-full object-contain bg-gray-300">
+        <div class="p-2">
+            <p class="text-md text-gray-700 font-mukta">{{articles.4.category.name|default:"Uncategorized"}}</p>
+            <p class="text-4xl text-black hover:text-red-700 font-medium font-josefin py-2 leading-[50px]">
+                <a href="/articles/{{articles.4.title}}">{{articles.4.title}}</a>
+            </p>
+            <p class="text-md text-gray-800 font-mediium font-nunito absolute bottom-4">{{articles.4.date}}, By {{articles.4.author.username}}</p>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if articles|length > 5 %}
+    <div class="grid lg:grid-cols-[2fr_5fr] lg:gap-y-0 gap-y-5 grid-rows-1 gap-x-5 mb-5">
+        <div class="relative bg-gray-200 h-[500px] rounded-md overflow-hidden">
+            <img src="{{articles.4.cover.url}}" alt="{{articles.4.title}}" class="h-[200px] w-full object-contain bg-gray-300">
+            <div class="p-2">
+                <p class="text-md text-gray-700 font-mukta">{{articles.4.category.name|default:"Uncategorized"}}</p>
+                <p class="text-4xl text-black hover:text-red-700 font-medium font-josefin py-2 leading-[50px]">
+                    <a href="/articles/{{articles.4.title}}">{{articles.4.title}}</a>
+                </p>
+                <p class="text-md text-gray-800 font-mediium font-nunito absolute bottom-4">{{articles.4.date}}, By {{articles.4.author.username}}</p>
+            </div>
+        </div>
+        <div class="relative bg-gray-200 h-[500px] rounded-md overflow-hidden">
+            <img src="{{articles.5.cover.url}}" alt="{{articles.5.title}}" class="h-[325px] w-full object-contain bg-gray-300">
+            <div class="p-2">
+                <p class="text-md text-gray-700 font-mukta">{{articles.5.category.name|default:"Uncategorized"}}</p>
+                <p class="text-4xl text-black hover:text-red-700 font-medium font-josefin py-2 leading-[50px]">
+                    <a href="/articles/{{articles.5.title}}">{{articles.5.title}}</a>
+                </p>
+                <p class="text-md text-gray-800 font-mediium font-nunito absolute bottom-4">{{articles.5.date}}, By {{articles.5.author.username}}</p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</section>
+
+<div class="flex gap-x-1 my-10 justify-center">
+    {% if paginator.has_previous %}
+    <a href="?page={{ paginator.previous_page_number }}">
+        <button class="bg-blue-500 rounded-sm hover:rounded-3xl hover:bg-red-500 duration-300 text-white p-4 px-5"><i class="fa-solid fa-arrow-left"></i></button>
+    </a>
+    {% endif %}
+    {% for page in paginator.paginator.page_range %}
+    <a href="?page={{ page }}">
+        <button class={% if paginator.number != page %} "bg-blue-500 rounded-sm hover:rounded-3xl hover:bg-red-500 duration-300 text-white p-4 px-5" {% else %} "bg-red-500 rounded-sm hover:rounded-3xl hover:bg-red-500 duration-300 text-white p-4 px-5" {% endif %}>{{page}}</button>
+    </a>
+    {% endfor %}
+    {% if paginator.has_next %}
+    <a href="?page={{ paginator.next_page_number }}">
+        <button class="bg-blue-500 rounded-sm hover:rounded-3xl hover:bg-red-500 duration-300 text-white p-4 px-5"><i class="fa-solid fa-arrow-right"></i></button>
+    </a>
+    {% endif %}
+</div>
+
+
+{% endblock main %}

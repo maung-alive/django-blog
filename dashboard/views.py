@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
 
 from core.models import Article, Comment, Category
 from django.contrib.auth.models import User
 from dashboard.models import Action
 
 from blog.helpers import save_action
+
 # Create your views here.
 def home(request):
     articles_count = Article.objects.all().order_by('-pk').count()
@@ -45,7 +47,9 @@ def new_articles(request):
             type="c",
             user=request.user
         )
+        messages.success(request, f"{title[:50]} was created")
         return redirect('web-dashboard')
+    
     categories = Category.objects.all().order_by('-pk')
     
     return render(request, 'dashboard/new_articles.html', { 'categories': categories })
@@ -88,6 +92,8 @@ def categories(request):
                 type="u",
                 user=request.user
             )
+            messages.success(request, f"{article.title[:50]} is removed from pins")
+
         elif request.GET.get('cat') != 'pin' and article.author == request.user:
             article.category = None
             article.save()
@@ -96,9 +102,11 @@ def categories(request):
                 type="u",
                 user=request.user
             )
+            messages.success(request, f"{article.title[:50]} is uncategorized!")
+
         else:
             pass
-        return redirect('dashboard-categories')
+
     elif request.GET and request.GET.get('type') == "add" and request.GET.get('title') != None:
         article = Article.objects.get(title=request.GET.get('title'))
         if request.GET.get('cat') == 'Pinned' and article.author == request.user:
@@ -121,6 +129,8 @@ def categories(request):
             pass
     elif request.GET and request.GET.get('type') == "add" and request.GET.get('title') == None:
         category = Category.objects.create(name=request.GET.get('cat'))
+        messages.success(request, f"category {category.name[:50]} is created!")
+
 
     return render(request, 'dashboard/categories.html', { "articles": articles, "cats": cats, 'pinned': pinned})
 
@@ -136,6 +146,8 @@ def settings(request):
                 user=request.user,
                 type="i"
             )
+            messages.success(request, f"Password changed!")
+
 
     elif request.POST and submit_type == 'svinfo':
         first_name = request.POST.get('first_name')
@@ -153,6 +165,8 @@ def settings(request):
             type="i",
             user=request.user
         )
+        messages.success(request, f"You've changed your profile info")
+
 
     return render(request, 'dashboard/settings.html', {
         
@@ -187,4 +201,4 @@ def delete_article(request):
 def delete_account(request):
     if request.GET and request.GET.get('username') == request.user.username:
         User.objects.get(username=request.GET.get('username')).delete()
-        return redirect('web-settings')
+        return redirect('web-login')

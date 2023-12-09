@@ -38,3 +38,5 @@ function setCategory (e, article) {
 function addNewCat(e) {
   $.get(`?type=add&cat=${$('#catName').val()}`, function (data) {})
 }
+
+setTimeout(function(){ document.querySelector('#message').className = document.querySelector('#message').className.replace("show", ""); }, 5000);

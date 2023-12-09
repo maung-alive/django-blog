@@ -38,6 +38,15 @@
     
     <main class="px-2 md:pl-80 lg:pl-96 relative">
         {% block main %}{% endblock main %}
+
+        {% if messages %}
+            {% for message in messages %}
+                <div id="message" class="show">
+                    {{message}}
+                </div>
+            {% endfor %}
+        {% endif %}
+
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         <script src="{% static 'src/custom.js' %}"></script>
     </main>

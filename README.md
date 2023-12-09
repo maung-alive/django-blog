@@ -1,1 +1,5 @@
-# Blog app using django and tailwind
+# Blog app using django (tailwindcss and fontawesome icons)
+
+**Special for this app**
+
+- *including admin dashboard*
